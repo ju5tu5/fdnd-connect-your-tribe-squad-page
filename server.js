@@ -46,6 +46,9 @@ app.get('/board/:id', function (request, response) {
   fetchJson(`${baseUrl}items/got99boards/${request.params.id}?fields=*.*`).then((apiData) => {
     // Pas de url naar de afbeelding aan zodat die verwijst naar directus
     apiData.data.picture = `${baseUrl}assets/${apiData.data.picture.filename_disk}`
+    apiData.data.length = Number(apiData.data.length).toFixed(2)
+    apiData.data.width = Number(apiData.data.width).toFixed(2)
+    apiData.data.wheelbase = Number(apiData.data.wheelbase).toFixed(2)
 
     // Render detail.ejs uit de views map en geef de opgehaalde data mee als variable, genaamd person
     response.render('board', {
@@ -59,17 +62,18 @@ app.post('/board/:id', function (request, response) {
   // Stap 1: Haal de huidige data op, zodat we altijd up-to-date zijn, en niks weggooien van anderen
 
   // Haal eerst de huidige gegevens voor dit board op, uit de WHOIS API
-  fetchJson(`${baseUrl}items/got99boards/${request.params.id}?fields=*.*`).then((apiResponse) => {
+  fetchJson(`${baseUrl}items/got99boards/${request.params.id}`).then((apiData) => {
     console.log('POST!!')
     console.log(request.body)
+    console.log(apiData)
 
     // Stap 2: Sla de nieuwe data op in de API
 
     // Voeg de nieuwe lijst messages toe in de WHOIS API, via een PATCH request
-    fetch('https://fdnd.directus.app/items/got99boards/' + request.params.id, {
+    fetch(`${baseUrl}items/got99boards/${request.params.id}`, {
       method: 'PATCH',
       body: JSON.stringify({
-        likes: apiResponse.data.custom,
+        likes: apiData.data.likes + 1,
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',

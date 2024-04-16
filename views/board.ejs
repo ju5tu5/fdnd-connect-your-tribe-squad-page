@@ -7,7 +7,7 @@
     <h2><%= board.name %></h2>
     <form class="like" action="/board/<%= board.id %>" method="post">
       <input type="hidden" name="actie" value="like" />
-      <button type="submit"><span><%= board.likes %></span> <span>likes</span></button>
+      <button type="submit"><span class="likes"><%= board.likes %></span> <span>likes</span></button>
     </form>
 
     <img src="<%= board.picture %>" alt="<%= board.name %>" />

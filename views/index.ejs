@@ -1,27 +1,14 @@
 <%- include('partials/head') %>
 
-<section lang="nl">
-  <h2>Huidige berichten</h2>
-  <ol>
-    <% messages.forEach(message => { %>
-      <li><%= message %></li>
-    <% }) %>
-  </ol>
-
-  <form method="POST" action="/">
-    <label>
-      Berichtje:
-      <textarea required name="bericht"></textarea>
-    </label>
-    <button type="submit">Verstuur bericht</button>
-  </form>
-</section>
-
-<h2>Students</h2>
-<ul>
-  <% persons.forEach(person => { %>
-    <li><a href="/detail/<%= person.id %>"><%= person.name %></a>, squad_id <%= person.squad_id %></li>
+<main>
+  <% boards.forEach(board => { %>
+  <article>
+    <h2><%= board.name %></h2>
+    <span><%= board.likes %></span> <span>likes</span>
+    <img src="<%= board.picture %>" alt="<%= board.name %>" />
+    <a href="/board/<%= board.id %>">Meer info</a>
+  </article>
   <% }) %>
-</ul>
+</main>
 
 <%- include('partials/foot') %>

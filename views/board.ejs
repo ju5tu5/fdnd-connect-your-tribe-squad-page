@@ -1,0 +1,26 @@
+<%- include('partials/head') %>
+
+<a href="/">Back</a>
+
+<main>
+  <article>
+    <h2><%= board.name %></h2>
+    <form class="like" action="/board/<%= board.id %>" method="post">
+      <input type="hidden" name="actie" value="like" />
+      <button type="submit"><span><%= board.likes %></span> <span>likes</span></button>
+    </form>
+
+    <img src="<%= board.picture %>" alt="<%= board.name %>" />
+    <ul>
+      <li class="brand">Brand: <%= board.brand %></li>
+      <li class="type">Type: <%= board.type %></li>
+      <li class="length">Length: <%= board.length %>"</li>
+      <li class="width">Width: <%= board.width %>"</li>
+      <li class="wheelbase">Wheelbase: <%= board.wheelbase %>"</li>
+      <li class="trucks">Trucks: <%= board.trucks %></li>
+      <li class="wheels">Wheels: <%= board.wheels %></li>
+    </ul>
+  </article>
+</main>
+
+<%- include('partials/foot') %>
